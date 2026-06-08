@@ -1,13 +1,7 @@
 ﻿# Digital Design Laboratory (ECE 2031)
 
-Digital design laboratory archive with hardware labs and a final project focused on VHDL, finite-state machines, datapath/control design, simulation, and FPGA-style implementation workflows.
+Coursework archive for Georgia Tech ECE 2031, including project, lab, homework, and assignment materials kept for undergraduate education documentation.
 
-## Included Materials
+## Notes
 
-- Digital logic labs
-- VHDL and project source files
-- Project submission materials
-
-## Archive Notes
-
-This repository was prepared for public documentation and archival purposes. Generated dependency folders, nested Git metadata, local build outputs, compressed archives, OS metadata, and grade calculator files were excluded during preparation.
+Generated dependency folders, nested Git metadata, local build outputs, archives, and OS metadata were excluded when this repository was prepared.
