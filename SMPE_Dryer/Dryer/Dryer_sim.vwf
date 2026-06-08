@@ -1,0 +1,384 @@
+/*<simulation_settings>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Dryer -c Dryer --vector_source="C:/Users/devin/Documents/ECE2031/SMPE_Dryer/Dryer/Dryer_sim.vwf" --testbench_file="C:/Users/devin/Documents/ECE2031/SMPE_Dryer/Dryer/simulation/qsim/Dryer_sim.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Dryer -c Dryer --vector_source="D:/Downloads/SMPE_Dryer/Dryer/Dryer_sim.vwf" --testbench_file="D:/Downloads/SMPE_Dryer/Dryer/simulation/qsim/Dryer_sim.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/devin/Documents/ECE2031/SMPE_Dryer/Dryer/simulation/qsim/" Dryer -c Dryer</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="D:/Downloads/SMPE_Dryer/Dryer/simulation/qsim/" Dryer -c Dryer</tnetlist_cmd>
+<modelsim_script>onerror {exit -code 1}
+vlib work
+vcom -work work Dryer.vho
+vcom -work work Dryer_sim.vwf.vht
+vsim -c -t 1ps -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Dryer_vhd_vec_tst
+vcd file -direction Dryer.msim.vcd
+vcd add -internal Dryer_vhd_vec_tst/*
+vcd add -internal Dryer_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+
+
+</modelsim_script>
+<modelsim_script_timing>onerror {exit -code 1}
+vlib work
+vcom -work work Dryer.vho
+vcom -work work Dryer_sim.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax Dryer_vhd_vec_tst/i1=Dryer_vhd.sdo -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Dryer_vhd_vec_tst
+vcd file -direction Dryer.msim.vcd
+vcd add -internal Dryer_vhd_vec_tst/*
+vcd add -internal Dryer_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+
+
+</modelsim_script_timing>
+<hdl_lang>vhdl</hdl_lang>
+</simulation_settings>*/
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+
+/*
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+*/
+
+HEADER
+{
+	VERSION = 1;
+	TIME_UNIT = ns;
+	DATA_OFFSET = 0.0;
+	DATA_DURATION = 100000.0;
+	SIMULATION_TIME = 100000.0;
+	GRID_PHASE = 0.0;
+	GRID_PERIOD = 500.0;
+	GRID_DUTY_CYCLE = 50;
+}
+
+USER_TYPE("__STATE")
+{
+	VALUES = "Undefined", "STATE.idle", "STATE.onroad", "STATE.entering";
+}
+
+SIGNAL("RESETN")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("CLOCK")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("TOOHOT")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("DAMP")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("HEAT")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("VENT")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+TRANSITION_LIST("RESETN")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 26000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 12000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 31000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 28500.0;
+	}
+}
+
+TRANSITION_LIST("CLOCK")
+{
+	NODE
+	{
+		REPEAT = 1;
+		NODE
+		{
+			REPEAT = 200;
+			LEVEL 0 FOR 250.0;
+			LEVEL 1 FOR 250.0;
+		}
+	}
+}
+
+TRANSITION_LIST("TOOHOT")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 5500.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 11500.0;
+		LEVEL 1 FOR 3000.0;
+		LEVEL 0 FOR 7000.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 12500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 2500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 4500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 2000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 2000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("DAMP")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 7500.0;
+		LEVEL 0 FOR 5000.0;
+		LEVEL 1 FOR 4500.0;
+		LEVEL 0 FOR 5500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 5500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2000.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 2000.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 3000.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 2000.0;
+		LEVEL 0 FOR 3000.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 3000.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 3000.0;
+		LEVEL 0 FOR 2000.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 1500.0;
+		LEVEL 0 FOR 3500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 1500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 3000.0;
+		LEVEL 1 FOR 2000.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2500.0;
+		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 3500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 2500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 500.0;
+		LEVEL 1 FOR 500.0;
+		LEVEL 0 FOR 2500.0;
+	}
+}
+
+TRANSITION_LIST("HEAT")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 100000.0;
+	}
+}
+
+TRANSITION_LIST("VENT")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 100000.0;
+	}
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "RESETN";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 0;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "CLOCK";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 1;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "TOOHOT";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 2;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "DAMP";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 3;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "HEAT";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 4;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "VENT";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 5;
+	TREE_LEVEL = 0;
+}
+
+TIME_BAR
+{
+	TIME = 0;
+	MASTER = TRUE;
+}
+
+TIME_BAR
+{
+	TIME = 0;
+	MASTER = TRUE;
+}
+;

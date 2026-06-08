@@ -1,0 +1,22 @@
+
+State Machine - |TrainTop|TrainController:inst|state
+Name state.ST8 state.ST7 state.ST6 state.ST5 state.ST4 state.ST3 state.ST2 state.ST1 state.ST0 
+state.ST0 0 0 0 0 0 0 0 0 0 
+state.ST1 0 0 0 0 0 0 0 1 1 
+state.ST2 0 0 0 0 0 0 1 0 1 
+state.ST3 0 0 0 0 0 1 0 0 1 
+state.ST4 0 0 0 0 1 0 0 0 1 
+state.ST5 0 0 0 1 0 0 0 0 1 
+state.ST6 0 0 1 0 0 0 0 0 1 
+state.ST7 0 1 0 0 0 0 0 0 1 
+state.ST8 1 0 0 0 0 0 0 0 1 
+
+State Machine - |TrainTop|TrainSetSimulator:inst1|SCOMP:inst6|STATE
+Name STATE.CU_ISTORE STATE.CU_ILOAD STATE.CU_OUT STATE.CU_STORE STATE.CU_DATA STATE.CU_INSTR STATE.RESET_PC 
+STATE.RESET_PC 0 0 0 0 0 0 0 
+STATE.CU_INSTR 0 0 0 0 0 1 1 
+STATE.CU_DATA 0 0 0 0 1 0 1 
+STATE.CU_STORE 0 0 0 1 0 0 1 
+STATE.CU_OUT 0 0 1 0 0 0 1 
+STATE.CU_ILOAD 0 1 0 0 0 0 1 
+STATE.CU_ISTORE 1 0 0 0 0 0 1 

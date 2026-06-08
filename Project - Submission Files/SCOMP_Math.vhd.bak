@@ -1,0 +1,265 @@
+-- ============================================================
+--  SCOMP Math Peripheral (addresses 0x90–0x9F)
+--  Author: ChatGPT
+--  Purpose: Provide math operations via SCOMP I/O protocol.
+--
+--  Address map (BASE = 0x90 by default):
+--    BASE + 0x0  : CONTROL/OP (write)   [bits 3..0 op code]
+--    BASE + 0x1  : OPERAND_A (write)    [16-bit signed]
+--    BASE + 0x2  : OPERAND_B (write)    [16-bit signed]
+--    BASE + 0x3  : RESULT_LO (read)     [low 16 bits or quotient]
+--    BASE + 0x4  : RESULT_HI (read)     [high 16 bits or remainder]
+--    BASE + 0x5  : STATUS (read)
+--
+--  STATUS bits:
+--    [0] READY         : 1 when result is valid (single-cycle after CONTROL write)
+--    [1] OVERFLOW      : 1 if add/sub overflow, or multiply upper != sign-extended lower
+--    [2] DIV_BY_ZERO   : 1 if division/mod by zero was requested
+--    [15:3]            : 0
+--
+--  Operations (CONTROL.OPCODE in bits [3:0]):
+--    0x0 NOP     : no-op; READY=1, results unchanged
+--    0x1 ADD     : A + B (signed 16-bit); RESULT_LO holds sum
+--    0x2 SUB     : A - B (signed 16-bit); RESULT_LO holds difference
+--    0x3 MUL     : A * B (signed 16x16 -> 32); RESULT_HI:RESULT_LO holds product
+--    0x4 DIV     : A / B (signed); RESULT_LO=quotient, RESULT_HI=remainder
+--    0x5 MOD     : A % B (signed); RESULT_HI=remainder, RESULT_LO=pass-through quotient (also provided)
+--    0x6 ABS     : |A|; RESULT_LO holds abs(A)
+--    0x7 NEG     : -A; RESULT_LO holds -A
+--
+--  Bus Assumptions/Notes:
+--    - io_rd and io_wr are active-HIGH, synchronous, one-clock-cycle strobes.
+--      If your SCOMP design uses active-LOW strobes (e.g., IO_RD_N, IO_WR_N),
+--      invert them externally before connecting.
+--    - io_data is a shared 16-bit inout. This unit drives it ONLY during read
+--      cycles to its address range. Otherwise it is 'Z' (tri-stated).
+--    - io_addr is 8-bit I/O address.
+--
+--  Synthesis:
+--    Uses numeric_std for signed/unsigned math. Division is inferred combinationally.
+--    You may prefer to retime/pipeline for Fmax if needed.
+-- ============================================================
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity SCOMP_Math is
+  generic (
+    BASE_ADDR : std_logic_vector(7 downto 0) := x"90" -- base I/O address (0x90..0x9F used)
+  );
+  port (
+    clk      : in  std_logic;
+    reset_n  : in  std_logic;
+
+    io_addr  : in  std_logic_vector(7 downto 0);
+    io_data  : inout std_logic_vector(15 downto 0);
+    io_rd    : in  std_logic;  -- active HIGH read strobe
+    io_wr    : in  std_logic   -- active HIGH write strobe
+  );
+end entity;
+
+architecture rtl of SCOMP_Math is
+
+  -- Local address offsets
+  constant ADDR_CTRL  : std_logic_vector(3 downto 0) := x"0";
+  constant ADDR_OPA   : std_logic_vector(3 downto 0) := x"1";
+  constant ADDR_OPB   : std_logic_vector(3 downto 0) := x"2";
+  constant ADDR_RESLO : std_logic_vector(3 downto 0) := x"3";
+  constant ADDR_RESHI : std_logic_vector(3 downto 0) := x"4";
+  constant ADDR_STAT  : std_logic_vector(3 downto 0) := x"5";
+
+  -- Opcodes
+  constant OP_NOP : std_logic_vector(3 downto 0) := x"0";
+  constant OP_ADD : std_logic_vector(3 downto 0) := x"1";
+  constant OP_SUB : std_logic_vector(3 downto 0) := x"2";
+  constant OP_MUL : std_logic_vector(3 downto 0) := x"3";
+  constant OP_DIV : std_logic_vector(3 downto 0) := x"4";
+  constant OP_MOD : std_logic_vector(3 downto 0) := x"5";
+  constant OP_ABS : std_logic_vector(3 downto 0) := x"6";
+  constant OP_NEG : std_logic_vector(3 downto 0) := x"7";
+
+  -- Internal registers
+  signal reg_A      : signed(15 downto 0) := (others => '0');
+  signal reg_B      : signed(15 downto 0) := (others => '0');
+  signal reg_ctrl   : std_logic_vector(3 downto 0) := (others => '0');
+  signal res_lo     : std_logic_vector(15 downto 0) := (others => '0');
+  signal res_hi     : std_logic_vector(15 downto 0) := (others => '0');
+  signal status     : std_logic_vector(15 downto 0) := (others => '0');
+
+  -- Read mux and tri-state control
+  signal read_data  : std_logic_vector(15 downto 0);
+  signal drive_bus  : std_logic;
+
+  -- Address decode helper
+  function in_window(a, base: std_logic_vector(7 downto 0)) return boolean is
+    variable av   : unsigned(7 downto 0) := unsigned(a);
+    variable basev: unsigned(7 downto 0) := unsigned(base);
+  begin
+    return (av >= basev) and (av <= basev + 16#0F#);
+  end function;
+
+  function local_offset(a, base: std_logic_vector(7 downto 0)) return std_logic_vector is
+    variable av   : unsigned(7 downto 0) := unsigned(a);
+    variable basev: unsigned(7 downto 0) := unsigned(base);
+    variable off  : unsigned(3 downto 0);
+  begin
+    off := unsigned(resize(av - basev, 4));
+    return std_logic_vector(off);
+  end function;
+
+  -- Helpers for flags
+  function signed_add_overflow(a, b, s: signed(15 downto 0)) return std_logic is
+  begin
+    -- Overflow if a and b have same sign, but result differs
+    if (a(15) = b(15)) and (s(15) /= a(15)) then
+      return '1';
+    else
+      return '0';
+    end if;
+  end function;
+
+  function signed_sub_overflow(a, b, d: signed(15 downto 0)) return std_logic is
+  begin
+    -- Overflow if a and -b have same sign, but result differs
+    if (a(15) /= b(15)) and (d(15) /= a(15)) then
+      return '1';
+    else
+      return '0';
+    end if;
+  end function;
+
+begin
+
+  --------------------------------------------------------------------
+  -- Write path: latch operands and control on writes to our window
+  --------------------------------------------------------------------
+  process(clk, reset_n)
+    variable loc  : std_logic_vector(3 downto 0);
+  begin
+    if reset_n = '0' then
+      reg_A    <= (others => '0');
+      reg_B    <= (others => '0');
+      reg_ctrl <= (others => '0');
+      res_lo   <= (others => '0');
+      res_hi   <= (others => '0');
+      status   <= (others => '0');
+      status(0) <= '1'; -- READY after reset (idle)
+    elsif rising_edge(clk) then
+      -- Default: keep READY high unless a new op starts
+      -- (Single-cycle compute; READY goes low for 1 cycle on CONTROL write)
+      if in_window(io_addr, BASE_ADDR) and (io_wr = '1') then
+        loc := local_offset(io_addr, BASE_ADDR);
+
+        case loc is
+          when ADDR_OPA =>
+            reg_A <= signed(io_data);
+          when ADDR_OPB =>
+            reg_B <= signed(io_data);
+          when ADDR_CTRL =>
+            reg_ctrl <= io_data(3 downto 0);
+            -- Start: clear flags, drop READY for one compute cycle
+            status(1) <= '0'; -- OVERFLOW
+            status(2) <= '0'; -- DIV_BY_ZERO
+            status(0) <= '0'; -- READY low while we compute below
+
+            -- Compute results (single-cycle)
+            case io_data(3 downto 0) is
+              when OP_NOP =>
+                null;
+
+              when OP_ADD =>
+                -- signed add
+                variable ssum : signed(15 downto 0);
+              begin
+                ssum := reg_A + reg_B;
+                res_lo <= std_logic_vector(ssum);
+                res_hi <= (others => '0');
+                status(1) <= signed_add_overflow(reg_A, reg_B, ssum);
+              end;
+
+              when OP_SUB =>
+                variable ssub : signed(15 downto 0);
+              begin
+                ssub := reg_A - reg_B;
+                res_lo <= std_logic_vector(ssub);
+                res_hi <= (others => '0');
+                status(1) <= signed_sub_overflow(reg_A, reg_B, ssub);
+              end;
+
+              when OP_MUL =>
+                variable prod : signed(31 downto 0);
+              begin
+                prod := resize(reg_A, 32) * resize(reg_B, 32);
+                res_lo <= std_logic_vector(prod(15 downto 0));
+                res_hi <= std_logic_vector(prod(31 downto 16));
+                -- Overflow if upper 16 != sign extension of bit15
+                if (prod(31 downto 16) /= (others => prod(15))) then
+                  status(1) <= '1';
+                end if;
+              end;
+
+              when OP_DIV | OP_MOD =>
+                variable quot : signed(15 downto 0);
+                variable rem  : signed(15 downto 0);
+              begin
+                if reg_B = 0 then
+                  status(2) <= '1';  -- DIV_BY_ZERO
+                  -- keep results unchanged
+                else
+                  quot := reg_A / reg_B;
+                  rem  := reg_A rem reg_B;
+                  -- DIV: LO=quot, HI=rem
+                  res_lo <= std_logic_vector(quot);
+                  res_hi <= std_logic_vector(rem);
+                end if;
+              end;
+
+              when OP_ABS =>
+              begin
+                if reg_A(15) = '1' then
+                  res_lo <= std_logic_vector(-reg_A);
+                else
+                  res_lo <= std_logic_vector(reg_A);
+                end if;
+                res_hi <= (others => '0');
+              end;
+
+              when OP_NEG =>
+              begin
+                res_lo <= std_logic_vector(-reg_A);
+                res_hi <= (others => '0');
+              end;
+
+              when others =>
+                null;
+            end case;
+
+            -- Done: raise READY
+            status(0) <= '1';
+
+          when others =>
+            null;
+        end case;
+      end if;
+    end if;
+  end process;
+
+  --------------------------------------------------------------------
+  -- Read path
+  --------------------------------------------------------------------
+  with local_offset(io_addr, BASE_ADDR) select
+    read_data <=
+      (others => '0')           when ADDR_CTRL, -- CONTROL is write-only; reads return 0
+      std_logic_vector(reg_A)   when ADDR_OPA,  -- for debugging if needed
+      std_logic_vector(reg_B)   when ADDR_OPB,
+      res_lo                    when ADDR_RESLO,
+      res_hi                    when ADDR_RESHI,
+      status                    when ADDR_STAT,
+      (others => '0')           when others;
+
+  drive_bus <= '1' when (in_window(io_addr, BASE_ADDR) and (io_rd = '1')) else '0';
+
+  io_data <= read_data when drive_bus = '1' else (others => 'Z');
+
+end architecture;

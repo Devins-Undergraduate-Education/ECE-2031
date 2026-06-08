@@ -1,0 +1,7 @@
+
+State Machine - |Dryer|STATE
+Name STATE.dryVent STATE.dryHeat STATE.cool STATE.idle 
+STATE.idle 0 0 0 0 
+STATE.cool 0 0 1 1 
+STATE.dryHeat 0 1 0 1 
+STATE.dryVent 1 0 0 1 

@@ -1,0 +1,68 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 082A; -- 	LOAD   Two
+0001: 2029; -- 	ADD    One
+0002: 2032; -- 	ADD    NegFive
+0003: 3003; -- 	ADDI   3
+0004: 37FF; -- 	ADDI   -1
+0005: 282B; -- 	SUB    Three
+0006: 2832; -- 	SUB    NegFive
+0007: 103A; --     STORE  Temp         ; What value gets stored?
+0008: 203A; --     ADD    Temp         ; What value is in AC now?
+0009: 083A; --     LOAD   Temp         ; What value is in AC now?
+000A: 1800; -- 	LOADI  0
+000B: 4037; -- 	OR     LowByte
+000C: 3835; -- 	AND    Bit2
+000D: 4837; -- 	XOR    LowByte
+000E: 5004; -- 	SHIFT  4
+000F: 5014; -- 	SHIFT  -4
+0010: 1800; -- 	LOADI  0
+0011: 6013; -- 	JNEG   WrongJump    ; 0 is not negative
+0012: 7015; -- 	JZERO  CheckJPOS
+0013: 0839; -- 	LOAD   ErrCode      ; 0xEEEE in AC indicates an error
+0014: 5813; -- 	JUMP   WrongJump    ; Infinite loop
+0015: 1FF8; -- 	LOADI  -8
+0016: 6813; -- 	JPOS   WrongJump    ; -8 is not positive
+0017: 1801; -- 	LOADI  1
+0018: 500F; -- 	SHIFT  15
+0019: 6813; -- 	JPOS   WrongJump    ; -0 is not positive
+001A: 5001; -- 	SHIFT  1
+001B: 6813; -- 	JPOS   WrongJump    ; 0 is not positive
+001C: 1808; -- 	LOADI  8
+001D: 681F; -- 	JPOS   CheckJNZ     ; 8 IS positive, so...
+001E: 5813; -- 	JUMP   WrongJump    ; if that jump fails, something is wrong
+001F: 1800; -- 	LOADI  0
+0020: 7813; -- 	JNZ    WrongJump    ; 0 is not not zero
+0021: 1FFF; -- 	LOADI  -1
+0022: 7824; -- 	JNZ    Questions    ; -1 IS not zero, so...
+0023: 5813; -- 	JUMP   WrongJump    ; if that jump fails, something is wrong
+0024: 1803; -- 	LOADI  &H0003       ; Why doesn't this operand work?
+0025: 40FF; -- 	OR     255          ; Why doesn't AC get OR'd with 255 (0xFF)?
+0026: 303A; -- 	ADDI   Temp         ; Why doesn't 2 (the value in Temp) get added?
+0027: 0838; -- 	LOAD   Buzz
+0028: 5828; -- 	JUMP   Finish       ; Infinite loop
+0029: 0001; -- One:       DW   1
+002A: 0002; -- Two:       DW   2
+002B: 0003; -- Three:     DW   3
+002C: 0004; -- Four:      DW   4
+002D: 0005; -- Five:      DW   5
+002E: FFFF; -- NegOne:    DW  -1
+002F: FFFE; -- NegTwo:    DW  -2
+0030: FFFD; -- NegThree:  DW  -3
+0031: FFFC; -- NegFour:   DW  -4
+0032: FFFB; -- NegFive:   DW  -5
+0033: 0001; -- Bit0:      DW  &B0001
+0034: 0002; -- Bit1:      DW  &B0010
+0035: 0004; -- Bit2:      DW  &B0100
+0036: 0008; -- Bit3:      DW  &B1000
+0037: 00FF; -- LowByte:   DW  &H00FF
+0038: ABEE; -- Buzz:      DW  &HABEE
+0039: EEEE; -- ErrCode:   DW  &HEEEE
+003A: 0000; -- Temp:      DW  0
+[003B..07FF] : 0000; -- [empty memory]
+END;

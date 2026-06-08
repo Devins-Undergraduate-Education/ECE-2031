@@ -1,0 +1,33 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "HEAT",
+					"strict" : false
+				},
+				{
+					"name" : "VENT",
+					"strict" : false
+				},
+				{
+					"name" : "TOOHOT",
+					"strict" : false
+				},
+				{
+					"name" : "DAMP",
+					"strict" : false
+				},
+				{
+					"name" : "CLOCK",
+					"strict" : false
+				},
+				{
+					"name" : "RESETN",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

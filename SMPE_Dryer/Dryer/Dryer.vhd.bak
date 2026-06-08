@@ -1,0 +1,45 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.All;
+
+-- Do not modify this entity statement.
+ENTITY Dryer IS  
+	PORT(
+		RESETN,
+		CLOCK,
+		TOOHOT,
+		DAMP   : IN  STD_LOGIC;
+		HEAT,
+		VENT   : OUT STD_LOGIC
+	);
+END Dryer;
+
+
+ARCHITECTURE internals of Dryer IS
+
+	TYPE STATE_TYPE IS ( idle ); -- define a type to represent the state
+	SIGNAL STATE : STATE_TYPE;   -- create a signal to store the state
+	-- You may declare additional signals here if desired.
+
+	BEGIN
+	
+	-- Process block for the state machine
+	PROCESS(CLOCK, RESETN) BEGIN
+		IF RESETN = '0' THEN
+			STATE <= idle ;
+		ELSIF RISING_EDGE(CLOCK) THEN
+			CASE STATE IS
+			WHEN idle =>
+				state <= idle;
+
+			WHEN others =>
+				state <= idle;
+			
+			END CASE;
+		END IF;
+	END PROCESS;
+
+	-- Combinational assignments for the output
+	HEAT <= '0';
+	VENT <= '0';
+
+END internals;

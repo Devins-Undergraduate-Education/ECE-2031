@@ -1,0 +1,9 @@
+2025-11-12 04:42:35  WM_QUERYENDSESSION (lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL) =====================================
+2025-11-12 04:42:35  WM_ENDSESSION (wParam: TRUE, lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL)
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\config.xml is opened.
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\config.xml  9457/9457 bytes are written.
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\config.xml is closed.
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\session.xml is opened.
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\session.xml  907/907 bytes are written.
+2025-11-12 04:42:35  C:\Users\devin\Documents\ECE2031\NPPPPSCASM\session.xml is closed.
+2025-11-12 04:42:35  WM_DESTROY (isEndSessionStarted == true)

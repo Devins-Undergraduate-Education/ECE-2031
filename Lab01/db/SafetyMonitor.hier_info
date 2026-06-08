@@ -1,0 +1,21 @@
+|SafetyMonitor
+powerdown <= inst8.DB_MAX_OUTPUT_PORT_TYPE
+disable_in => inst1231.IN0
+flames => inst.IN0
+flames => inst9.IN1
+flames => inst12.IN0
+flames => inst13.IN0
+estop => inst.IN1
+estop => inst13.IN2
+suppress <= inst9.DB_MAX_OUTPUT_PORT_TYPE
+ventilate <= inst11.DB_MAX_OUTPUT_PORT_TYPE
+temp => inst10.IN0
+temp => inst13.IN1
+gas => inst10.IN1
+gas => inst13.IN3
+lockdown <= inst14.DB_MAX_OUTPUT_PORT_TYPE
+intrusion => inst14.IN1
+intrusion => inst16.IN0
+all_clear <= inst18.DB_MAX_OUTPUT_PORT_TYPE
+
+

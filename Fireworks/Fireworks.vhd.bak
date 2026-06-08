@@ -1,0 +1,44 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.All;
+
+-- Do not modify this entity statement.
+ENTITY Fireworks IS  
+	PORT(
+		RESETN,
+		CLOCK,
+		B1,
+		B2      : IN  STD_LOGIC;
+		GO,
+		FAIL    : OUT STD_LOGIC
+	);
+END Fireworks;
+
+
+ARCHITECTURE internals of Fireworks IS
+
+	TYPE STATE_TYPE IS (idle);
+	SIGNAL STATE : STATE_TYPE;
+	-- You may declare additional signals here if desired.
+
+	BEGIN
+
+	-- Process block for the state machine
+	PROCESS(CLOCK, RESETN) BEGIN
+		IF RESETN = '0' THEN
+			STATE <= idle ;
+		ELSIF CLOCK'EVENT AND CLOCK = '1' THEN
+			CASE STATE IS
+			WHEN idle =>
+				state <= idle;
+
+			WHEN others =>
+				state <= idle;
+			END CASE;
+		END IF;
+	END PROCESS;
+
+	-- Combinational assignments for the outputs
+	GO <= '0';
+	FAIL <= '0';
+
+END internals;

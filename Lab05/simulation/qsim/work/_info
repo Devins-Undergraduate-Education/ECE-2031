@@ -1,0 +1,107 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/devin/Documents/ECE2031/Lab05/simulation/qsim
+Efour_state_moore_state_machine
+Z1 w1758734178
+Z2 DPx8 cyclonev 18 cyclonev_atom_pack 0 22 3HQPc5MVbmOPN?>a5EBYj2
+Z3 DPx8 cyclonev 19 cyclonev_components 0 22 jZ]H46BQLgIP5mfRTO`3B1
+Z4 DPx12 altera_lnsim 23 altera_lnsim_components 0 22 ^Ch;U@;bMk1;>A2B<UV`k2
+Z5 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z6 DPx6 altera 11 dffeas_pack 0 22 dc5N=DKXMMTVYdUQ@D3FA2
+Z7 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z8 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z9 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+Z10 DPx6 altera 28 altera_primitives_components 0 22 ca:ehlQAg4;_gVV:^8MAg3
+!i122 8
+R0
+Z11 8VDHL_Lab05.vho
+Z12 FVDHL_Lab05.vho
+l0
+L39 1
+VgLDnVb__=o4jECFX;P?HI1
+!s100 jTP=0Dj;ijCCXHP<E6[Nz3
+Z13 OV;C;2020.1;71
+32
+Z14 !s110 1758734179
+!i10b 1
+Z15 !s108 1758734179.000000
+Z16 !s90 -work|work|VDHL_Lab05.vho|
+Z17 !s107 VDHL_Lab05.vho|
+!i113 1
+Z18 o-work work
+Z19 tExplicit 1 CvgOpt 0
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+R10
+DEx4 work 30 four_state_moore_state_machine 0 22 gLDnVb__=o4jECFX;P?HI1
+!i122 8
+l84
+L50 210
+VoA8TKj6B7g]GLiA1=TgnK0
+!s100 RYG@5W_QhSLNG28mHMoUN0
+R13
+32
+R14
+!i10b 1
+R15
+R16
+R17
+!i113 1
+R18
+R19
+Efour_state_moore_state_machine_vhd_vec_tst
+Z20 w1758734177
+R8
+R9
+!i122 9
+R0
+Z21 8Waveform.vwf.vht
+Z22 FWaveform.vwf.vht
+l0
+L32 1
+VL=2[jTBL]gn70`9h9Z^e^1
+!s100 PLYP>gCZWd@a92ne9>1XT1
+R13
+32
+R14
+!i10b 1
+R15
+Z23 !s90 -work|work|Waveform.vwf.vht|
+Z24 !s107 Waveform.vwf.vht|
+!i113 1
+R18
+R19
+Afour_state_moore_state_machine_arch
+R8
+R9
+Z25 DEx4 work 42 four_state_moore_state_machine_vhd_vec_tst 0 22 L=2[jTBL]gn70`9h9Z^e^1
+!i122 9
+l53
+Z26 L34 94
+Z27 VLeE`T6LfPB2Jj2N=BfniE1
+Z28 !s100 VfIKjA;B=B575ae0neX?93
+R13
+32
+R14
+!i10b 1
+R15
+R23
+R24
+!i113 1
+R18
+R19

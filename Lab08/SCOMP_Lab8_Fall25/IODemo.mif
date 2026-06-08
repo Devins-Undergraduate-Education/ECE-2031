@@ -1,0 +1,64 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 9000; --     IN     Switches       ; V = current switch state
+0001: 1031; --     STORE  SwVal
+0002: 0831; --     LOAD   SwVal
+0003: 7805; --     JNZ    CheckMoreThanOne
+0004: 5816; --     JUMP   AcceptSwitches
+0005: 0831; --     LOAD   SwVal
+0006: 1032; --     STORE  TmpA           ; TmpA = V (preserve V)
+0007: 0831; --     LOAD   SwVal
+0008: 37FF; --     ADDI   -1
+0009: 3832; --     AND    TmpA           ; ACC = (V-1) & V
+000A: 1033; --     STORE  V1
+000B: 0833; --     LOAD   V1
+000C: 780E; --     JNZ    CheckMoreThanTwo
+000D: 5816; --     JUMP   AcceptSwitches
+000E: 0833; --     LOAD   V1
+000F: 1032; --     STORE  TmpA           ; TmpA = V1
+0010: 0833; --     LOAD   V1
+0011: 37FF; --     ADDI   -1
+0012: 3832; --     AND    TmpA           ; ACC = (V1-1) & V1
+0013: 1034; --     STORE  V2
+0014: 0834; --     LOAD   V2
+0015: 7800; --     JNZ    WaitForTwoOrLess
+0016: 9000; --     IN     Switches
+0017: 9801; --     OUT    LEDs
+0018: 1030; --     STORE  Pattern
+0019: 802B; --     CALL   Delay
+001A: 0830; --     LOAD   Pattern
+001B: 3836; --     AND    Bit9         ; bit mask
+001C: 7822; --     JNZ    Right        ; bit9 is 1; go right
+001D: 0830; --     LOAD   Pattern
+001E: 5001; --     SHIFT  1
+001F: 1030; --     STORE  Pattern
+0020: 9801; --     OUT    LEDs
+0021: 5819; --     JUMP   Left
+0022: 802B; --     CALL   Delay
+0023: 0830; --     LOAD   Pattern
+0024: 3835; --     AND    Bit0         ; bit mask
+0025: 7819; --     JNZ    Left         ; bit0 is 1; go left
+0026: 0830; --     LOAD   Pattern
+0027: 5011; --     SHIFT  -1
+0028: 1030; --     STORE  Pattern
+0029: 9801; --     OUT    LEDs
+002A: 5822; --     JUMP   Right
+002B: 9802; --     OUT    Timer
+002C: 9002; --     IN     Timer
+002D: 37FB; --     ADDI   -5
+002E: 602C; --     JNEG   WaitingLoop
+002F: 8800; --     RETURN
+0030: 0000; -- Pattern:   DW 0
+0031: 0000; -- SwVal:     DW 0
+0032: 0000; -- TmpA:      DW 0
+0033: 0000; -- V1:        DW 0
+0034: 0000; -- V2:        DW 0
+0035: 0001; -- Bit0:      DW &B0000000001
+0036: 0200; -- Bit9:      DW &B1000000000
+[0037..07FF] : 0000; -- [empty memory]
+END;

@@ -1,0 +1,346 @@
+// Copyright (C) 2025  Altera Corporation. All rights reserved.
+// Your use of Altera Corporation's design tools, logic functions 
+// and other software and tools, and any partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Altera Program License 
+// Subscription Agreement, the Altera Quartus Prime License Agreement,
+// the Altera IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Altera and sold by Altera or its authorized distributors.  Please
+// refer to the Altera Software License Subscription Agreements 
+// on the Quartus Prime software download page.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition"
+
+// DATE "08/27/2025 13:28:50"
+
+// 
+// Device: Altera 5CSXFC6D6F31C6 Package FBGA896
+// 
+
+// 
+// This Verilog file should be used for Questa Intel FPGA (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module SafetyMonitor (
+	powerdown,
+	disable_in,
+	flames,
+	estop,
+	suppress,
+	ventilate,
+	temp,
+	gas,
+	lockdown,
+	intrusion,
+	all_clear);
+output 	powerdown;
+input 	disable_in;
+input 	flames;
+input 	estop;
+output 	suppress;
+output 	ventilate;
+input 	temp;
+input 	gas;
+output 	lockdown;
+input 	intrusion;
+output 	all_clear;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+wire \powerdown~output_o ;
+wire \suppress~output_o ;
+wire \ventilate~output_o ;
+wire \lockdown~output_o ;
+wire \all_clear~output_o ;
+wire \disable_in~input_o ;
+wire \flames~input_o ;
+wire \estop~input_o ;
+wire \inst8~0_combout ;
+wire \inst9~combout ;
+wire \temp~input_o ;
+wire \gas~input_o ;
+wire \inst11~0_combout ;
+wire \intrusion~input_o ;
+wire \inst14~0_combout ;
+wire \inst18~combout ;
+
+
+cyclonev_io_obuf \powerdown~output (
+	.i(\inst8~0_combout ),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\powerdown~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \powerdown~output .bus_hold = "false";
+defparam \powerdown~output .open_drain_output = "false";
+defparam \powerdown~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+cyclonev_io_obuf \suppress~output (
+	.i(\inst9~combout ),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\suppress~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \suppress~output .bus_hold = "false";
+defparam \suppress~output .open_drain_output = "false";
+defparam \suppress~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+cyclonev_io_obuf \ventilate~output (
+	.i(\inst11~0_combout ),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\ventilate~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \ventilate~output .bus_hold = "false";
+defparam \ventilate~output .open_drain_output = "false";
+defparam \ventilate~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+cyclonev_io_obuf \lockdown~output (
+	.i(\inst14~0_combout ),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\lockdown~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \lockdown~output .bus_hold = "false";
+defparam \lockdown~output .open_drain_output = "false";
+defparam \lockdown~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+cyclonev_io_obuf \all_clear~output (
+	.i(!\inst18~combout ),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\all_clear~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \all_clear~output .bus_hold = "false";
+defparam \all_clear~output .open_drain_output = "false";
+defparam \all_clear~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+cyclonev_io_ibuf \disable_in~input (
+	.i(disable_in),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\disable_in~input_o ));
+// synopsys translate_off
+defparam \disable_in~input .bus_hold = "false";
+defparam \disable_in~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_io_ibuf \flames~input (
+	.i(flames),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\flames~input_o ));
+// synopsys translate_off
+defparam \flames~input .bus_hold = "false";
+defparam \flames~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_io_ibuf \estop~input (
+	.i(estop),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\estop~input_o ));
+// synopsys translate_off
+defparam \estop~input .bus_hold = "false";
+defparam \estop~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_lcell_comb \inst8~0 (
+// Equation(s):
+// \inst8~0_combout  = (!\disable_in~input_o  & ((\estop~input_o ) # (\flames~input_o )))
+
+	.dataa(!\disable_in~input_o ),
+	.datab(!\flames~input_o ),
+	.datac(!\estop~input_o ),
+	.datad(gnd),
+	.datae(gnd),
+	.dataf(gnd),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\inst8~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \inst8~0 .extended_lut = "off";
+defparam \inst8~0 .lut_mask = 64'h2A2A2A2A2A2A2A2A;
+defparam \inst8~0 .shared_arith = "off";
+// synopsys translate_on
+
+cyclonev_lcell_comb inst9(
+// Equation(s):
+// \inst9~combout  = (!\disable_in~input_o  & \flames~input_o )
+
+	.dataa(!\disable_in~input_o ),
+	.datab(!\flames~input_o ),
+	.datac(gnd),
+	.datad(gnd),
+	.datae(gnd),
+	.dataf(gnd),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\inst9~combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam inst9.extended_lut = "off";
+defparam inst9.lut_mask = 64'h2222222222222222;
+defparam inst9.shared_arith = "off";
+// synopsys translate_on
+
+cyclonev_io_ibuf \temp~input (
+	.i(temp),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\temp~input_o ));
+// synopsys translate_off
+defparam \temp~input .bus_hold = "false";
+defparam \temp~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_io_ibuf \gas~input (
+	.i(gas),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\gas~input_o ));
+// synopsys translate_off
+defparam \gas~input .bus_hold = "false";
+defparam \gas~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_lcell_comb \inst11~0 (
+// Equation(s):
+// \inst11~0_combout  = (!\disable_in~input_o  & (!\flames~input_o  & ((\gas~input_o ) # (\temp~input_o ))))
+
+	.dataa(!\disable_in~input_o ),
+	.datab(!\flames~input_o ),
+	.datac(!\temp~input_o ),
+	.datad(!\gas~input_o ),
+	.datae(gnd),
+	.dataf(gnd),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\inst11~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \inst11~0 .extended_lut = "off";
+defparam \inst11~0 .lut_mask = 64'h0888088808880888;
+defparam \inst11~0 .shared_arith = "off";
+// synopsys translate_on
+
+cyclonev_io_ibuf \intrusion~input (
+	.i(intrusion),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\intrusion~input_o ));
+// synopsys translate_off
+defparam \intrusion~input .bus_hold = "false";
+defparam \intrusion~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cyclonev_lcell_comb \inst14~0 (
+// Equation(s):
+// \inst14~0_combout  = ( !\gas~input_o  & ( \intrusion~input_o  & ( (!\disable_in~input_o  & (!\flames~input_o  & (!\estop~input_o  & !\temp~input_o ))) ) ) )
+
+	.dataa(!\disable_in~input_o ),
+	.datab(!\flames~input_o ),
+	.datac(!\estop~input_o ),
+	.datad(!\temp~input_o ),
+	.datae(!\gas~input_o ),
+	.dataf(!\intrusion~input_o ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\inst14~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \inst14~0 .extended_lut = "off";
+defparam \inst14~0 .lut_mask = 64'h0000000080000000;
+defparam \inst14~0 .shared_arith = "off";
+// synopsys translate_on
+
+cyclonev_lcell_comb inst18(
+// Equation(s):
+// \inst18~combout  = ( \gas~input_o  & ( \intrusion~input_o  ) ) # ( !\gas~input_o  & ( \intrusion~input_o  ) ) # ( \gas~input_o  & ( !\intrusion~input_o  ) ) # ( !\gas~input_o  & ( !\intrusion~input_o  & ( (((\temp~input_o ) # (\estop~input_o )) # 
+// (\flames~input_o )) # (\disable_in~input_o ) ) ) )
+
+	.dataa(!\disable_in~input_o ),
+	.datab(!\flames~input_o ),
+	.datac(!\estop~input_o ),
+	.datad(!\temp~input_o ),
+	.datae(!\gas~input_o ),
+	.dataf(!\intrusion~input_o ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\inst18~combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam inst18.extended_lut = "off";
+defparam inst18.lut_mask = 64'h7FFFFFFFFFFFFFFF;
+defparam inst18.shared_arith = "off";
+// synopsys translate_on
+
+assign powerdown = \powerdown~output_o ;
+
+assign suppress = \suppress~output_o ;
+
+assign ventilate = \ventilate~output_o ;
+
+assign lockdown = \lockdown~output_o ;
+
+assign all_clear = \all_clear~output_o ;
+
+endmodule

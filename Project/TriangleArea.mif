@@ -1,0 +1,32 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 182A; --                 LOADI   &H002A
+0001: 9891; --                 OUT     MathOpA        ; write operand A into the math block
+0002: 1818; --                 LOADI   &H0018
+0003: 9892; --                 OUT     MathOpB        ; write operand B into the math block
+0004: 1803; --                 LOADI   OP_MUL
+0005: 9890; --                 OUT     MathCtrl       ; kick off a MUL with the current operands
+0006: 9093; --                 IN      MathResLo
+0007: 1015; --                 STORE   TwiceArea      ; grab the low product (fits in 16 bits here)
+0008: 0815; --                 LOAD    TwiceArea
+0009: 9891; --                 OUT     MathOpA        ; reuse result as new operand A
+000A: 1802; --                 LOADI   2
+000B: 9892; --                 OUT     MathOpB        ; constant divisor
+000C: 1804; --                 LOADI   OP_DIV
+000D: 9890; --                 OUT     MathCtrl       ; start the divide
+000E: 9093; --                 IN      MathResLo
+000F: 1016; --                 STORE   FinalArea      ; quotient is the triangle area
+0010: 1800; --                 LOADI   0
+0011: 9805; --                 OUT     Hex1           ; blank upper display
+0012: 0816; --                 LOAD    FinalArea
+0013: 9804; --                 OUT     Hex0           ; show the area (0x01F8 = 504 sq ft)
+0014: 5814; -- HoldResult:     JUMP    HoldResult      ; keep displaying the answer
+0015: 0000; -- TwiceArea:      DW      0
+0016: 0000; -- FinalArea:      DW      0
+[0017..07FF] : 0000; -- [empty memory]
+END;

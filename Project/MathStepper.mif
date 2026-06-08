@@ -1,0 +1,229 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 9000; --                 IN      Switches
+0001: 10B5; --                 STORE   SwitchShadow
+0002: 08B5; --                 LOAD    SwitchShadow
+0003: 38C1; --                 AND     StepMask
+0004: 10B4; --                 STORE   PrevStepBit
+0005: 1800; --                 LOADI   0
+0006: 10B3; --                 STORE   StageIndex
+0007: 8031; --                 CALL    PerformStage
+0008: 800C; --                 CALL    WaitStepToggle
+0009: 8028; --                 CALL    AdvanceStage
+000A: 8031; --                 CALL    PerformStage
+000B: 5808; --                 JUMP    MainLoop
+000C: 9000; --                 IN      Switches
+000D: 10B5; --                 STORE   SwitchShadow
+000E: 08B5; --                 LOAD    SwitchShadow
+000F: 38C1; --                 AND     StepMask
+0010: 10B6; --                 STORE   StepCurrent
+0011: 08B6; --                 LOAD    StepCurrent
+0012: 48B4; --                 XOR     PrevStepBit
+0013: 700C; --                 JZERO   WaitStepToggle   ; no change yet -> keep waiting
+0014: 8020; --                 CALL    DebounceDelay
+0015: 9000; --                 IN      Switches
+0016: 10B5; --                 STORE   SwitchShadow
+0017: 08B5; --                 LOAD    SwitchShadow
+0018: 38C1; --                 AND     StepMask
+0019: 10B6; --                 STORE   StepCurrent
+001A: 08B6; --                 LOAD    StepCurrent
+001B: 48B4; --                 XOR     PrevStepBit
+001C: 700C; --                 JZERO   WaitStepToggle   ; bounced back -> ignore
+001D: 08B6; --                 LOAD    StepCurrent
+001E: 10B4; --                 STORE   PrevStepBit
+001F: 8800; --                 RETURN
+0020: 08D2; --                 LOAD    DebouncePreset
+0021: 10C0; --                 STORE   DebounceCounter
+0022: 08C0; --                 LOAD    DebounceCounter
+0023: 37FF; --                 ADDI    -1
+0024: 10C0; --                 STORE   DebounceCounter
+0025: 6027; --                 JNEG    DebounceDone
+0026: 5822; --                 JUMP    DebounceLoop
+0027: 8800; -- DebounceDone:   RETURN
+0028: 08B3; --                 LOAD    StageIndex
+0029: 3001; --                 ADDI    1
+002A: 10B3; --                 STORE   StageIndex
+002B: 08B3; --                 LOAD    StageIndex
+002C: 28B8; --                 SUB     StageLimit
+002D: 6030; --                 JNEG    StageOk          ; still within range
+002E: 1800; --                 LOADI   0
+002F: 10B3; --                 STORE   StageIndex
+0030: 8800; -- StageOk:        RETURN
+0031: 08B3; --                 LOAD    StageIndex
+0032: 10B7; --                 STORE   StageScratch
+0033: 08B7; --                 LOAD    StageScratch
+0034: 704E; --                 JZERO   DoAdd
+0035: 08B7; --                 LOAD    StageScratch
+0036: 37FF; --                 ADDI    -1
+0037: 7057; --                 JZERO   DoSub
+0038: 08B7; --                 LOAD    StageScratch
+0039: 37FE; --                 ADDI    -2
+003A: 7060; --                 JZERO   DoMul
+003B: 08B7; --                 LOAD    StageScratch
+003C: 37FD; --                 ADDI    -3
+003D: 7069; --                 JZERO   DoDiv
+003E: 08B7; --                 LOAD    StageScratch
+003F: 37FC; --                 ADDI    -4
+0040: 7072; --                 JZERO   DoMod
+0041: 08B7; --                 LOAD    StageScratch
+0042: 37FB; --                 ADDI    -5
+0043: 707B; --                 JZERO   DoAbs
+0044: 08B7; --                 LOAD    StageScratch
+0045: 37FA; --                 ADDI    -6
+0046: 7084; --                 JZERO   DoNeg
+0047: 08B7; --                 LOAD    StageScratch
+0048: 37F9; --                 ADDI    -7
+0049: 708D; --                 JZERO   DoMin
+004A: 08B7; --                 LOAD    StageScratch
+004B: 37F8; --                 ADDI    -8
+004C: 7096; --                 JZERO   DoMax
+004D: 8800; --                 RETURN                  ; default (should not hit)
+004E: 08C2; --                 LOAD    AddOpA
+004F: 10B9; --                 STORE   PendingOpA
+0050: 08C3; --                 LOAD    AddOpB
+0051: 10BA; --                 STORE   PendingOpB
+0052: 08D3; --                 LOAD    OP_ADD
+0053: 10BB; --                 STORE   PendingOpcode
+0054: 809F; --                 CALL    RunMathOp
+0055: 80AC; --                 CALL    UpdateDisplays
+0056: 8800; --                 RETURN
+0057: 08C4; --                 LOAD    SubOpA
+0058: 10B9; --                 STORE   PendingOpA
+0059: 08C5; --                 LOAD    SubOpB
+005A: 10BA; --                 STORE   PendingOpB
+005B: 08D4; --                 LOAD    OP_SUB
+005C: 10BB; --                 STORE   PendingOpcode
+005D: 809F; --                 CALL    RunMathOp
+005E: 80AC; --                 CALL    UpdateDisplays
+005F: 8800; --                 RETURN
+0060: 08C6; --                 LOAD    MulOpA
+0061: 10B9; --                 STORE   PendingOpA
+0062: 08C7; --                 LOAD    MulOpB
+0063: 10BA; --                 STORE   PendingOpB
+0064: 08D5; --                 LOAD    OP_MUL
+0065: 10BB; --                 STORE   PendingOpcode
+0066: 809F; --                 CALL    RunMathOp
+0067: 80AC; --                 CALL    UpdateDisplays
+0068: 8800; --                 RETURN
+0069: 08C8; --                 LOAD    DivOpA
+006A: 10B9; --                 STORE   PendingOpA
+006B: 08C9; --                 LOAD    DivOpB
+006C: 10BA; --                 STORE   PendingOpB
+006D: 08D6; --                 LOAD    OP_DIV
+006E: 10BB; --                 STORE   PendingOpcode
+006F: 809F; --                 CALL    RunMathOp
+0070: 80AC; --                 CALL    UpdateDisplays
+0071: 8800; --                 RETURN
+0072: 08CA; --                 LOAD    ModOpA
+0073: 10B9; --                 STORE   PendingOpA
+0074: 08CB; --                 LOAD    ModOpB
+0075: 10BA; --                 STORE   PendingOpB
+0076: 08D7; --                 LOAD    OP_MOD
+0077: 10BB; --                 STORE   PendingOpcode
+0078: 809F; --                 CALL    RunMathOp
+0079: 80AC; --                 CALL    UpdateDisplays
+007A: 8800; --                 RETURN
+007B: 08CC; --                 LOAD    AbsOpA
+007C: 10B9; --                 STORE   PendingOpA
+007D: 08BF; --                 LOAD    ZeroWord
+007E: 10BA; --                 STORE   PendingOpB
+007F: 08D8; --                 LOAD    OP_ABS
+0080: 10BB; --                 STORE   PendingOpcode
+0081: 809F; --                 CALL    RunMathOp
+0082: 80AC; --                 CALL    UpdateDisplays
+0083: 8800; --                 RETURN
+0084: 08CD; --                 LOAD    NegOpA
+0085: 10B9; --                 STORE   PendingOpA
+0086: 08BF; --                 LOAD    ZeroWord
+0087: 10BA; --                 STORE   PendingOpB
+0088: 08D9; --                 LOAD    OP_NEG
+0089: 10BB; --                 STORE   PendingOpcode
+008A: 809F; --                 CALL    RunMathOp
+008B: 80AC; --                 CALL    UpdateDisplays
+008C: 8800; --                 RETURN
+008D: 08CE; --                 LOAD    MinOpA
+008E: 10B9; --                 STORE   PendingOpA
+008F: 08CF; --                 LOAD    MinOpB
+0090: 10BA; --                 STORE   PendingOpB
+0091: 08DA; --                 LOAD    OP_MIN
+0092: 10BB; --                 STORE   PendingOpcode
+0093: 809F; --                 CALL    RunMathOp
+0094: 80AC; --                 CALL    UpdateDisplays
+0095: 8800; --                 RETURN
+0096: 08D0; --                 LOAD    MaxOpA
+0097: 10B9; --                 STORE   PendingOpA
+0098: 08D1; --                 LOAD    MaxOpB
+0099: 10BA; --                 STORE   PendingOpB
+009A: 08DB; --                 LOAD    OP_MAX
+009B: 10BB; --                 STORE   PendingOpcode
+009C: 809F; --                 CALL    RunMathOp
+009D: 80AC; --                 CALL    UpdateDisplays
+009E: 8800; --                 RETURN
+009F: 08B9; --                 LOAD    PendingOpA
+00A0: 9891; --                 OUT     MathOpA
+00A1: 08BA; --                 LOAD    PendingOpB
+00A2: 9892; --                 OUT     MathOpB
+00A3: 08BB; --                 LOAD    PendingOpcode
+00A4: 9890; --                 OUT     MathCtrl
+00A5: 9093; --                 IN      MathResLo
+00A6: 10BC; --                 STORE   ResultLo
+00A7: 9094; --                 IN      MathResHi
+00A8: 10BD; --                 STORE   ResultHi
+00A9: 9095; --                 IN      MathStatus
+00AA: 10BE; --                 STORE   StatusWord
+00AB: 8800; --                 RETURN
+00AC: 08BD; --                 LOAD    ResultHi
+00AD: 9805; --                 OUT     Hex1
+00AE: 08BC; --                 LOAD    ResultLo
+00AF: 9804; --                 OUT     Hex0
+00B0: 08BE; --                 LOAD    StatusWord
+00B1: 9801; --                 OUT     LEDs
+00B2: 8800; --                 RETURN
+00B3: 0000; -- StageIndex:     DW      0
+00B4: 0000; -- PrevStepBit:    DW      0
+00B5: 0000; -- SwitchShadow:   DW      0
+00B6: 0000; -- StepCurrent:    DW      0
+00B7: 0000; -- StageScratch:   DW      0
+00B8: 0009; -- StageLimit:     DW      NumStages        ; constant NumStages value for comparisons
+00B9: 0000; -- PendingOpA:     DW      0
+00BA: 0000; -- PendingOpB:     DW      0
+00BB: 0000; -- PendingOpcode:  DW      0
+00BC: 0000; -- ResultLo:       DW      0
+00BD: 0000; -- ResultHi:       DW      0
+00BE: 0000; -- StatusWord:     DW      0
+00BF: 0000; -- ZeroWord:       DW      0
+00C0: 0000; -- DebounceCounter: DW      0
+00C1: 0001; -- StepMask:       DW      &H0001          ; use SW0 by default
+00C2: 0100; -- AddOpA:         DW      &H0100
+00C3: 0020; -- AddOpB:         DW      &H0020
+00C4: 00F0; -- SubOpA:         DW      &H00F0
+00C5: 0028; -- SubOpB:         DW      &H0028
+00C6: 000F; -- MulOpA:         DW      &H000F
+00C7: 000C; -- MulOpB:         DW      &H000C
+00C8: 012C; -- DivOpA:         DW      &H012C
+00C9: 000A; -- DivOpB:         DW      &H000A
+00CA: 012D; -- ModOpA:         DW      &H012D
+00CB: 000A; -- ModOpB:         DW      &H000A
+00CC: FFBB; -- AbsOpA:         DW      &HFFBB
+00CD: 0025; -- NegOpA:         DW      &H0025
+00CE: 0042; -- MinOpA:         DW      &H0042
+00CF: 0019; -- MinOpB:         DW      &H0019
+00D0: 0034; -- MaxOpA:         DW      &H0034
+00D1: 005A; -- MaxOpB:         DW      &H005A
+00D2: 05DC; -- DebouncePreset: DW      1500
+00D3: 0001; -- OP_ADD:         DW      1
+00D4: 0002; -- OP_SUB:         DW      2
+00D5: 0003; -- OP_MUL:         DW      3
+00D6: 0004; -- OP_DIV:         DW      4
+00D7: 0005; -- OP_MOD:         DW      5
+00D8: 0006; -- OP_ABS:         DW      6
+00D9: 0007; -- OP_NEG:         DW      7
+00DA: 0008; -- OP_MIN:         DW      8
+00DB: 0009; -- OP_MAX:         DW      9
+[00DC..07FF] : 0000; -- [empty memory]
+END;

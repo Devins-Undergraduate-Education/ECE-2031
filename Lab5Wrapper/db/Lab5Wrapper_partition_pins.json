@@ -1,0 +1,33 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "resetn_out",
+					"strict" : false
+				},
+				{
+					"name" : "red_out",
+					"strict" : false
+				},
+				{
+					"name" : "green_out",
+					"strict" : false
+				},
+				{
+					"name" : "KEY0",
+					"strict" : false
+				},
+				{
+					"name" : "feeding_in",
+					"strict" : false
+				},
+				{
+					"name" : "packing_in",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

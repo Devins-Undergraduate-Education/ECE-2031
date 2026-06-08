@@ -1,0 +1,59 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/devin/Documents/ECE2031/Lab00/simulation/qsim
+vIntroCircuit
+Z1 !s110 1756307405
+!i10b 1
+!s100 4MGb90K7SG]PjLi46BT9S1
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Igbn5VGFhbf?jZ6XO012n`2
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1756307404
+8IntroCircuit.vo
+FIntroCircuit.vo
+!i122 2
+L0 32 156
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1756307405.000000
+!s107 IntroCircuit.vo|
+!s90 -work|work|IntroCircuit.vo|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
+n@intro@circuit
+vIntroCircuit_vlg_vec_tst
+R1
+!i10b 1
+!s100 :z3lhe83Q1=J0O18@N^do3
+R2
+I>@nbJPUnFmVe7C?6MHG3[0
+R3
+R0
+w1756307403
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+!i122 3
+L0 30 56
+R4
+r1
+!s85 0
+31
+R5
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R6
+R7
+n@intro@circuit_vlg_vec_tst

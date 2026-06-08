@@ -1,0 +1,13 @@
+|four_state_moore_state_machine
+feeding => process_1.IN0
+feeding => process_1.IN0
+packing => process_1.IN1
+packing => process_1.IN1
+packing => Selector1.IN2
+packing => next_state.CHECK.DATAB
+clock => state~1.DATAIN
+resetn => state~3.DATAIN
+y1 <= y1.DB_MAX_OUTPUT_PORT_TYPE
+y0 <= y0.DB_MAX_OUTPUT_PORT_TYPE
+
+

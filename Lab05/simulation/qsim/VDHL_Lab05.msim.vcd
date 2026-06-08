@@ -1,0 +1,387 @@
+$comment
+	File created using the following command:
+		vcd file VDHL_Lab05.msim.vcd -direction
+$end
+$date
+	Wed Sep 24 13:16:20 2025
+$end
+$version
+	ModelSim Version 2020.1
+$end
+$timescale
+	1ps
+$end
+
+$scope module four_state_moore_state_machine_vhd_vec_tst $end
+$var wire 1 ! clock $end
+$var wire 1 " feeding $end
+$var wire 1 # packing $end
+$var wire 1 $ resetn $end
+$var wire 1 % y0 $end
+$var wire 1 & y1 $end
+
+$scope module i1 $end
+$var wire 1 ' gnd $end
+$var wire 1 ( vcc $end
+$var wire 1 ) unknown $end
+$var wire 1 * devoe $end
+$var wire 1 + devclrn $end
+$var wire 1 , devpor $end
+$var wire 1 - ww_devoe $end
+$var wire 1 . ww_devclrn $end
+$var wire 1 / ww_devpor $end
+$var wire 1 0 ww_feeding $end
+$var wire 1 1 ww_packing $end
+$var wire 1 2 ww_clock $end
+$var wire 1 3 ww_resetn $end
+$var wire 1 4 ww_y1 $end
+$var wire 1 5 ww_y0 $end
+$var wire 1 6 \y1~output_o\ $end
+$var wire 1 7 \y0~output_o\ $end
+$var wire 1 8 \clock~input_o\ $end
+$var wire 1 9 \feeding~input_o\ $end
+$var wire 1 : \packing~input_o\ $end
+$var wire 1 ; \Selector1~0_combout\ $end
+$var wire 1 < \resetn~input_o\ $end
+$var wire 1 = \state.GREEN~q\ $end
+$var wire 1 > \next_state.CHECK~0_combout\ $end
+$var wire 1 ? \state.CHECK~q\ $end
+$var wire 1 @ \Selector0~0_combout\ $end
+$var wire 1 A \state.RED~q\ $end
+$var wire 1 B \ALT_INV_state.CHECK~q\ $end
+$var wire 1 C \ALT_INV_state.RED~q\ $end
+$var wire 1 D \ALT_INV_state.GREEN~q\ $end
+$var wire 1 E \ALT_INV_feeding~input_o\ $end
+$var wire 1 F \ALT_INV_packing~input_o\ $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+0"
+0#
+1$
+0%
+1&
+0'
+1(
+x)
+1*
+1+
+1,
+1-
+1.
+1/
+00
+01
+02
+13
+14
+05
+16
+07
+08
+09
+0:
+0;
+1<
+0=
+0>
+0?
+0@
+0A
+1B
+1C
+1D
+1E
+1F
+$end
+#25000
+1!
+12
+18
+#50000
+0!
+02
+08
+#60000
+1"
+10
+19
+0E
+#75000
+1!
+12
+18
+#100000
+0!
+02
+08
+#125000
+1!
+12
+18
+#150000
+0!
+02
+08
+#160000
+1#
+11
+1:
+0F
+1;
+1@
+#175000
+1!
+12
+18
+1=
+1A
+0C
+0D
+17
+06
+15
+04
+1%
+0&
+#200000
+0!
+02
+08
+#225000
+1!
+12
+18
+#250000
+0!
+02
+08
+#275000
+1!
+12
+18
+#300000
+0!
+02
+08
+#325000
+1!
+12
+18
+#350000
+0!
+02
+08
+#360000
+0#
+01
+0:
+1F
+0;
+1>
+#375000
+1!
+12
+18
+0=
+1?
+0B
+1D
+0>
+0@
+#400000
+0!
+02
+08
+#425000
+1!
+12
+18
+0?
+0A
+1C
+1B
+07
+16
+05
+14
+0%
+1&
+#450000
+0!
+02
+08
+#475000
+1!
+12
+18
+#500000
+0!
+02
+08
+#520000
+1#
+11
+1:
+0F
+1;
+1@
+#525000
+1!
+12
+18
+1=
+1A
+0C
+0D
+17
+06
+15
+04
+1%
+0&
+#540000
+0$
+03
+0<
+0=
+0A
+1C
+1D
+07
+16
+05
+14
+0%
+1&
+#550000
+0!
+02
+08
+#575000
+1!
+12
+18
+#580000
+1$
+13
+1<
+#600000
+0!
+02
+08
+#620000
+0"
+00
+09
+1E
+0;
+0@
+#625000
+1!
+12
+18
+#650000
+0!
+02
+08
+#675000
+1!
+12
+18
+#700000
+0!
+1"
+02
+10
+19
+08
+0E
+1;
+1@
+#720000
+0#
+01
+0:
+1F
+0;
+0@
+#725000
+1!
+12
+18
+#750000
+0!
+02
+08
+#775000
+1!
+12
+18
+#800000
+0!
+02
+08
+#820000
+0$
+03
+0<
+#825000
+1!
+12
+18
+#840000
+1$
+13
+1<
+#850000
+0!
+02
+08
+#875000
+1!
+12
+18
+#880000
+1#
+11
+1:
+0F
+1;
+1@
+#900000
+0!
+0"
+02
+00
+09
+08
+1E
+0;
+0@
+#925000
+1!
+12
+18
+#950000
+0!
+02
+08
+#960000
+0#
+01
+0:
+1F
+#975000
+1!
+12
+18
+#980000
+1"
+10
+19
+0E
+#1000000

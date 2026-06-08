@@ -1,0 +1,82 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 1800; --     LOADI  0
+0001: 103D; --     STORE  Score
+0002: 9805; --     OUT    Hex1           ; show 00 on the left display 
+0003: 9000; --     IN     Switches
+0004: 103F; --     STORE  Sw
+0005: 9801; --     OUT    LEDs
+0006: 083D; --     LOAD   Score
+0007: 9805; --     OUT    Hex1
+0008: 083F; --     LOAD   Sw
+0009: 7803; --     JNZ    WaitUntilZero   ; keep waiting until user lowers all switches
+000A: 9000; --     IN     Switches
+000B: 103F; --     STORE  Sw
+000C: 9801; --     OUT    LEDs
+000D: 083D; --     LOAD   Score
+000E: 9805; --     OUT    Hex1
+000F: 083F; --     LOAD   Sw
+0010: 7816; --     JNZ    RoundStart      ; user raised a switch -> begin round
+0011: 083E; --     LOAD   random
+0012: 802D; --     CALL   LFSR
+0013: 3841; --     AND    TenBits
+0014: 103E; --     STORE  random
+0015: 580A; --     JUMP   RandomizeWhileZero
+0016: 9802; --     OUT    Timer           ; write anything -> reset 10 Hz timer to 0
+0017: 083E; --     LOAD   random
+0018: 9804; --     OUT    Hex0            ; show the target value during the round
+0019: 9000; --     IN     Switches
+001A: 103F; --     STORE  Sw
+001B: 9801; --     OUT    LEDs
+001C: 083D; --     LOAD   Score
+001D: 9805; --     OUT    Hex1
+001E: 083E; --     LOAD   random
+001F: 9804; --     OUT    Hex0
+0020: 083F; --     LOAD   Sw
+0021: 3841; --     AND    TenBits
+0022: 283E; --     SUB    random
+0023: 7025; --     JZERO  CheckTime       ; matched! evaluate time for scoring
+0024: 5819; --     JUMP   WaitCorrect     ; not matched yet; keep waiting
+0025: 9002; --     IN     Timer   
+0026: 37CE; --     ADDI   -50         
+0027: 6029; --     JNEG   GotPoint
+0028: 582C; --     JUMP   NewRound        ; 5s or more: no point
+0029: 083D; --     LOAD   Score
+002A: 3001; --     ADDI   1
+002B: 103D; --     STORE  Score
+002C: 5803; --     JUMP   WaitUntilZero
+002D: 1042; --     STORE  LFSR_Orig
+002E: 0842; --     LOAD   LFSR_Orig
+002F: 3845; --     AND    LFSR_Mask4
+0030: 5014; --     SHIFT  -4
+0031: 1043; --     STORE  LFSR_Temp
+0032: 0842; --     LOAD   LFSR_Orig
+0033: 3846; --     AND    LFSR_Mask8
+0034: 5018; --     SHIFT  -8
+0035: 4843; --     XOR    LFSR_Temp
+0036: 3848; --     AND    LFSR_Bit0
+0037: 1044; --     STORE  LFSR_FB
+0038: 0842; --     LOAD   LFSR_Orig
+0039: 5001; --     SHIFT  1
+003A: 3847; --     AND    LFSR_NotBit0
+003B: 4044; --     OR     LFSR_FB
+003C: 8800; --     RETURN
+003D: 0000; -- Score:       DW   0                 ; score is cleared at reset/start
+003E: 0001; -- random:      DW   &H0001            ; non-zero seed for LFSR (change if desired)
+003F: 0000; -- Sw:          DW   0                 ; last-read switches
+0040: 0000; -- Ticks:       DW   0                 ; (optional scratch)
+0041: 03FF; -- TenBits:     DW   &H03FF            ; keep only bits 9..0
+0042: 0000; -- LFSR_Orig:    DW   0
+0043: 0000; -- LFSR_Temp:    DW   0
+0044: 0000; -- LFSR_FB:      DW   0
+0045: 0010; -- LFSR_Mask4:   DW   &H0010
+0046: 0100; -- LFSR_Mask8:   DW   &H0100
+0047: FFFE; -- LFSR_NotBit0: DW   &HFFFE
+0048: 0001; -- LFSR_Bit0:    DW   &B0001
+[0049..07FF] : 0000; -- [empty memory]
+END;

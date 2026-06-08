@@ -1,0 +1,53 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "powerdown",
+					"strict" : false
+				},
+				{
+					"name" : "suppress",
+					"strict" : false
+				},
+				{
+					"name" : "ventilate",
+					"strict" : false
+				},
+				{
+					"name" : "lockdown",
+					"strict" : false
+				},
+				{
+					"name" : "all_clear",
+					"strict" : false
+				},
+				{
+					"name" : "disable_in",
+					"strict" : false
+				},
+				{
+					"name" : "flames",
+					"strict" : false
+				},
+				{
+					"name" : "estop",
+					"strict" : false
+				},
+				{
+					"name" : "temp",
+					"strict" : false
+				},
+				{
+					"name" : "gas",
+					"strict" : false
+				},
+				{
+					"name" : "intrusion",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

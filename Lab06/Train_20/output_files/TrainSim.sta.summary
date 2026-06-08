@@ -1,0 +1,357 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Setup 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -15.037
+TNS   : -258.126
+
+Type  : Slow 1100mV 85C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : -8.954
+TNS   : -352.365
+
+Type  : Slow 1100mV 85C Model Setup 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -3.236
+TNS   : -23.251
+
+Type  : Slow 1100mV 85C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.657
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.332
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.363
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.717
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : 1.271
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -8.223
+TNS   : -8.223
+
+Type  : Slow 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -8.180
+TNS   : -8.180
+
+Type  : Slow 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -2.448
+TNS   : -22.012
+
+Type  : Slow 1100mV 85C Model Removal 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 1.820
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 5.779
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 6.037
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -0.394
+TNS   : -16.515
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -0.394
+TNS   : -4.599
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -0.394
+TNS   : -0.515
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -0.394
+TNS   : -0.509
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.538
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.470
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.476
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk_50'
+Slack : 9.670
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Setup 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -14.759
+TNS   : -253.774
+
+Type  : Slow 1100mV 0C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : -8.191
+TNS   : -322.427
+
+Type  : Slow 1100mV 0C Model Setup 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -3.107
+TNS   : -22.415
+
+Type  : Slow 1100mV 0C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.799
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.249
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.363
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.723
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : 1.100
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -8.193
+TNS   : -8.193
+
+Type  : Slow 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -8.188
+TNS   : -8.188
+
+Type  : Slow 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -2.291
+TNS   : -20.599
+
+Type  : Slow 1100mV 0C Model Removal 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 1.674
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 5.915
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 6.106
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -0.394
+TNS   : -16.839
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -0.394
+TNS   : -4.626
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -0.394
+TNS   : -0.529
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -0.394
+TNS   : -0.511
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.538
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.453
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.455
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.673
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Setup 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -9.424
+TNS   : -161.225
+
+Type  : Fast 1100mV 85C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : -7.349
+TNS   : -284.919
+
+Type  : Fast 1100mV 85C Model Setup 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -1.709
+TNS   : -10.696
+
+Type  : Fast 1100mV 85C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 11.148
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.179
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.181
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.296
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : 0.759
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -4.586
+TNS   : -4.586
+
+Type  : Fast 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -4.513
+TNS   : -4.513
+
+Type  : Fast 1100mV 85C Model Recovery 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -1.063
+TNS   : -9.559
+
+Type  : Fast 1100mV 85C Model Removal 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.854
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 3.098
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 3.235
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -0.116
+TNS   : -0.258
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.143
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 0.156
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 0.165
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.538
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.583
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.586
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk_50'
+Slack : 9.336
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -8.682
+TNS   : -148.271
+
+Type  : Fast 1100mV 0C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : -6.030
+TNS   : -233.406
+
+Type  : Fast 1100mV 0C Model Setup 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -1.469
+TNS   : -9.251
+
+Type  : Fast 1100mV 0C Model Setup 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 11.503
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.108
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.169
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.270
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : 0.604
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : -4.452
+TNS   : -4.452
+
+Type  : Fast 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : -4.380
+TNS   : -4.380
+
+Type  : Fast 1100mV 0C Model Recovery 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : -0.895
+TNS   : -8.047
+
+Type  : Fast 1100mV 0C Model Removal 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.711
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 3.018
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Removal 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 3.150
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|SCOMP:inst6|IO_CYCLE'
+Slack : -0.082
+TNS   : -0.163
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|DIG_OUT:inst10|BLED[0]'
+Slack : 0.143
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|vert_sync_out'
+Slack : 0.148
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'TrainSetSimulator:inst1|VGA_PPU:inst|row_end'
+Slack : 0.165
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.538
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.582
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'inst1|inst1|trainpll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 6.584
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.286
+TNS   : 0.000
+
+------------------------------------------------------------

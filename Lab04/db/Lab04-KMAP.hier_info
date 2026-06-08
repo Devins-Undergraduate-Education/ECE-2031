@@ -1,0 +1,30 @@
+|Lab04-KMAP
+Z <= inst5.DB_MAX_OUTPUT_PORT_TYPE
+feeding => inst8768.IN0
+feeding => inst3.IN0
+feeding => inst1.IN1
+packing => inst4.IN0
+packing => inst1.IN0
+clock => 7474:inst8.1CLK
+clock => 7474:inst8.2CLK
+resetn => 7474:inst8.2CLRN
+resetn => 7474:inst8.1CLRN
+Q[0] <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+Q[1] <= inst2.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|Lab04-KMAP|7474:inst8
+1Q <= 9.DB_MAX_OUTPUT_PORT_TYPE
+1CLRN => 9.ACLR
+1CLK => 9.CLK
+1D => 9.DATAIN
+1PRN => 9.PRESET
+1QN <= 16.DB_MAX_OUTPUT_PORT_TYPE
+2Q <= 10.DB_MAX_OUTPUT_PORT_TYPE
+2CLRN => 10.ACLR
+2CLK => 10.CLK
+2D => 10.DATAIN
+2PRN => 10.PRESET
+2QN <= 15.DB_MAX_OUTPUT_PORT_TYPE
+
+

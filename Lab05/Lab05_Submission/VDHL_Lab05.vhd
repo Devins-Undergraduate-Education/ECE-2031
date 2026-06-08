@@ -1,0 +1,83 @@
+-- Three-State Moore State Machine (RED/GREEN/CHECK)
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity four_state_moore_state_machine is
+    port(
+        feeding : in  std_logic;   -- F
+        packing : in  std_logic;   -- P
+        clock   : in  std_logic;
+        resetn  : in  std_logic;   -- active-low reset
+        y1      : out std_logic;   -- MSB of state encoding
+        y0      : out std_logic    -- LSB of state encoding
+        -- "00" RED, "01" GREEN, "10" CHECK
+    );
+end entity;
+
+architecture rtl of four_state_moore_state_machine is
+
+    -- Enumerated states
+    type state_type is (RED, GREEN, CHECK);
+
+    -- State register and next-state
+    signal state, next_state : state_type;
+
+begin
+    ----------------------------------------------------------------------------
+    -- State register (synchronous update, async active-low reset to RED)
+    ----------------------------------------------------------------------------
+    process (clock, resetn)
+    begin
+        if resetn = '0' then
+            state <= RED;
+        elsif rising_edge(clock) then
+            state <= next_state;
+        end if;
+    end process;
+
+    ----------------------------------------------------------------------------
+    -- Next-state combinational logic (from your code)
+    ----------------------------------------------------------------------------
+    process (state, feeding, packing)
+    begin
+        -- default: hold
+        next_state <= state;
+
+        case state is
+            when RED =>
+                if (feeding = '1' and packing = '1') then
+                    next_state <= GREEN;
+                else
+                    next_state <= RED;
+                end if;
+
+            when GREEN =>
+                if (packing = '0') then
+                    next_state <= CHECK;
+                else
+                    next_state <= GREEN; -- packing = '1'
+                end if;
+
+            when CHECK =>
+                if (feeding = packing) then
+                    next_state <= GREEN;
+                else
+                    next_state <= RED; -- F != P
+                end if;
+        end case;
+    end process;
+
+    ----------------------------------------------------------------------------
+    -- Moore outputs: depend ONLY on current state
+    ----------------------------------------------------------------------------
+    process (state)
+    begin
+        case state is
+            when RED   => y1 <= '1'; y0 <= '0'; -- "00"
+            when GREEN => y1 <= '0'; y0 <= '1'; -- "01"
+            when CHECK => y1 <= '0'; y0 <= '1'; -- "10"
+        end case;
+    end process;
+
+end architecture rtl;
